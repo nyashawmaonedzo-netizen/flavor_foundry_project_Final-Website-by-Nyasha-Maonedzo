@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="order-summary">
+    <h1>Thank you for your order!</h1>
+    <p>Your order number is <strong>#{{ order.id }}</strong>.</p>
+    <p>We sent a confirmation email to <strong>{{ order.email }}</strong>.</p>
+    <h2>Shipping details</h2>
+    <p>{{ order.full_name }}</p>
+    <p>{{ order.shipping_address }}</p>
+    <p>{{ order.city }}, {{ order.postal_code }}</p>
+    <h2>Order total</h2>
+    <p>${{ order.total_amount }}</p>
+    <a class="button" href="{% url 'home' %}">Continue shopping</a>
+</section>
+{% endblock %}

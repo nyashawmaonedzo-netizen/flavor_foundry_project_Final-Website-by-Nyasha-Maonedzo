@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <div>
+        <h1>FlavorFoundry Ecommerce</h1>
+        <p>Browse products, add them to your cart, and checkout with secure shipping information.</p>
+    </div>
+</section>
+
+<section class="product-list">
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+                <article class="product-card">
+                    <a href="{% url 'product_detail' id=product.id %}">
+                        <img src="{{ product.image_url|default:'https://via.placeholder.com/320x220?text=No+Image' }}" alt="{{ product.name }}">
+                    </a>
+                    <div class="product-body">
+                        <h2><a href="{% url 'product_detail' id=product.id %}">{{ product.name }}</a></h2>
+                        <p>{{ product.description|truncatechars:140 }}</p>
+                        <p class="price">${{ product.price }}</p>
+                        <p class="availability">{% if product.is_in_stock %}In stock{% else %}Out of stock{% endif %}</p>
+                        <div class="card-actions">
+                            <a class="button outline" href="{% url 'product_detail' id=product.id %}">View</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No products available yet. Add a product to start selling.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="product-detail">
+        <div class="product-image">
+            <img src="{{ product.image_url|default:'https://via.placeholder.com/450x300?text=No+Image' }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+            <p class="product-price">${{ product.price }}</p>
+            <p>{{ product.description|linebreaksbr }}</p>
+            <p><strong>Status:</strong> {% if product.is_in_stock %}Available{% else %}Sold out{% endif %}</p>
+            <p><strong>Stock:</strong> {{ product.stock }}</p>
+
+            <form action="{% url 'add_to_cart' id=product.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="button">Add to cart</button>
+            </form>
+
+            <p class="actions">
+                <a href="{% url 'edit_product' id=product.id %}">Edit product</a> |
+                <a href="{% url 'delete_product' id=product.id %}">Delete product</a>
+            </p>
+        </div>
+    </section>
+{% endblock %}

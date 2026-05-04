@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="form-page">
+    <div class="checkout-summary">
+        <h1>Checkout</h1>
+        <form method="post" class="product-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">Complete Order</button>
+        </form>
+    </div>
+
+    <aside class="order-summary">
+        <h2>Order summary</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.line_total }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="checkout-total">Order total: ${{ total }}</p>
+    </aside>
+</section>
+{% endblock %}

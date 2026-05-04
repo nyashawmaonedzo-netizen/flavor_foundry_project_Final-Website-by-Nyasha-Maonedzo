@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section class="form-page">
+        <h1>{{ page_title|default:'Add a New Product' }}</h1>
+        <form method="POST" class="product-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="button">Save Product</button>
+        </form>
+    </section>
+{% endblock %}

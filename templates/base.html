@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlavorFoundry Shop</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="brand">
+            <a href="{% url 'home' %}">FlavorFoundry</a>
+        </div>
+        <nav class="main-nav">
+            <a href="{% url 'home' %}">Products</a>
+            <a href="{% url 'add_product' %}">Add Product</a>
+            <a href="{% url 'cart_detail' %}">Cart ({{ cart_count|default:0 }})</a>
+        </nav>
+    </header>
+
+    {% if messages %}
+        <section class="notifications">
+            {% for message in messages %}
+                <div class="notification {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+    <main class="page-container">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+
+</html>
