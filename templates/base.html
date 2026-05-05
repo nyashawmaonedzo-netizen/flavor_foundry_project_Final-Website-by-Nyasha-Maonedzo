@@ -12,10 +12,10 @@
 <body>
     <header class="site-header">
         <div class="brand">
-            <a href="{% url 'home' %}">FlavorFoundry</a>
+            <a href="{% url 'home' %}">Vertex Food Hut</a>
         </div>
         <nav class="main-nav">
-            <a href="{% url 'home' %}">Products</a>
+            <a href="{% url 'home' %}">Food</a>
             {% if user.is_staff %}
                 <a href="{% url 'add_product' %}"> Add Product</a>
                 <a href="/admin/">Admin Panel</a>
