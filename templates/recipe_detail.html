@@ -49,16 +49,16 @@
                 {% if user.is_authenticated %}
                     <form action="{% url 'add_to_wishlist' id=product.id %}" method="post" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit" class="button outline">❤️ Add to wishlist</button>
+                        <button type="submit" class="button outline"> Add to wishlist</button>
                     </form>
                 {% else %}
-                    <a href="{% url 'login' %}?next={% url 'product_detail' id=product.id %}" class="button outline">❤️ Add to wishlist</a>
+                    <a href="{% url 'login' %}?next={% url 'product_detail' id=product.id %}" class="button outline"> Add to wishlist</a>
                 {% endif %}
                 
                 <!-- Admin Edit/Delete Links -->
                 {% if user.is_staff %}
-                    <a href="{% url 'edit_product' id=product.id %}" class="button outline">✏️ Edit</a>
-                    <a href="{% url 'delete_product' id=product.id %}" class="button outline danger">🗑️ Delete</a>
+                    <a href="{% url 'edit_product' id=product.id %}" class="button outline"> Edit</a>
+                    <a href="{% url 'delete_product' id=product.id %}" class="button outline danger"> Delete</a>
                 {% endif %}
             </div>
         </div>
