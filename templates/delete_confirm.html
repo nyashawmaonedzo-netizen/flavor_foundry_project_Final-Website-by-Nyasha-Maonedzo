@@ -2,12 +2,17 @@
 
 {% block content %}
     <section class="confirm-page">
-        <h1>Remove Product</h1>
-        <p>Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
+        <h1>{{ title|default:'Remove Product' }}</h1>
+        <div class="delete-warning">
+            <p>Are you sure you want to delete <strong>{{ product.name }}</strong>?</p>
+            <p class="warning-text">This action cannot be undone.</p>
+        </div>
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="button danger">Yes, delete this product</button>
+            <div class="confirm-actions">
+                <button type="submit" class="button danger">Yes, delete this product</button>
+                <a class="button outline" href="{% url 'product_detail' id=product.id %}">Cancel</a>
+            </div>
         </form>
-        <a class="button outline" href="{% url 'home' %}">Cancel</a>
     </section>
 {% endblock %}

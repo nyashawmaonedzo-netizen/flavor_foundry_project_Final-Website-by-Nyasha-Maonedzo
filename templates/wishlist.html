@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="wishlist-page">
+    <h1>My Wishlist</h1>
+    
+    {% if wishlist.products.all %}
+        <div class="product-grid">
+            {% for product in wishlist.products.all %}
+                <article class="product-card">
+                    <a href="{% url 'product_detail' id=product.id %}">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{{ product.image_url|default:'https://via.placeholder.com/320x220?text=No+Image' }}" alt="{{ product.name }}">
+                        {% endif %}
+                    </a>
+                    <div class="product-body">
+                        <h2><a href="{% url 'product_detail' id=product.id %}">{{ product.name }}</a></h2>
+                        <p>{{ product.description|truncatechars:140 }}</p>
+                        <p class="price">${{ product.price }}</p>
+                        <p class="availability">{% if product.is_in_stock %}In stock{% else %}Out of stock{% endif %}</p>
+                        <div class="card-actions">
+                            <a class="button" href="{% url 'product_detail' id=product.id %}">View</a>
+                            <form action="{% url 'remove_from_wishlist' id=product.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="button danger">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Your wishlist is empty. <a href="{% url 'home' %}">Browse products</a> to add items.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -2,32 +2,49 @@
 
 {% block content %}
 <section class="checkout-summary">
-    <h1>Your Shopping Cart</h1>
+    <h1>🛒 Your Shopping Cart</h1>
     {% if items %}
-        <table>
+        <table class="cart-table">
             <thead>
                 <tr>
                     <th>Product</th>
+                    <th>Price</th>
                     <th>Quantity</th>
-                    <th>Line total</th>
-                    <th></th>
+                    <th>Line Total</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in items %}
                     <tr>
-                        <td>{{ item.product.name }}</td>
+                        <td>
+                            <a href="{% url 'product_detail' id=item.product.id %}">{{ item.product.name }}</a>
+                        </td>
+                        <td>${{ item.product.price }}</td>
                         <td>{{ item.quantity }}</td>
                         <td>${{ item.line_total }}</td>
-                        <td><a class="button outline" href="{% url 'remove_from_cart' id=item.product.id %}">Remove</a></td>
+                        <td>
+                            <form action="{% url 'remove_from_cart' id=item.product.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="button danger small">Remove</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <p class="checkout-total">Cart total: ${{ total }}</p>
-        <a class="button" href="{% url 'checkout' %}">Continue to checkout</a>
+        <div class="cart-summary">
+            <p class="checkout-total">Cart Total: <strong>${{ total }}</strong></p>
+            <div class="cart-actions">
+                <a class="button" href="{% url 'checkout' %}">Proceed to Checkout</a>
+                <a class="button outline" href="{% url 'home' %}">Continue Shopping</a>
+            </div>
+        </div>
     {% else %}
-        <p>Your cart is empty. Browse products to get started.</p>
+        <div class="empty-cart">
+            <p>Your cart is empty!</p>
+            <p><a href="{% url 'home' %}">Browse our products</a> to add items to your cart.</p>
+        </div>
     {% endif %}
 </section>
 {% endblock %}

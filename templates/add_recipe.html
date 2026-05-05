@@ -2,11 +2,35 @@
 
 {% block content %}
     <section class="form-page">
-        <h1>{{ page_title|default:'Add a New Product' }}</h1>
-        <form method="POST" class="product-form">
+        <h1>{{ title|default:'Add a New Product' }}</h1>
+        <form method="POST" class="product-form" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="button">Save Product</button>
+            {% if form.non_field_errors %}
+                <div class="errors">
+                    {% for error in form.non_field_errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-container">
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="field-errors">
+                                {% for error in field.errors %}
+                                    <p>{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="button">Save Product</button>
+                <a href="{% url 'home' %}" class="button outline">Cancel</a>
+            </div>
         </form>
     </section>
 {% endblock %}
