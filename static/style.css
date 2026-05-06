@@ -86,9 +86,12 @@ body {
 
 .price,
 .product-price {
-    color: #e67e22;
+    color: #000000;
     font-weight: bold;
     margin: 0.5rem 0;
+}
+.product-image{
+    max-width: 20;
 }
 
 .availability {
