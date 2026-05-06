@@ -6,7 +6,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f7;
-    color: #212121;
+    color: #f82828;
 }
 
 .site-header {
@@ -65,7 +65,7 @@ body {
 .confirm-page,
 .checkout-summary,
 .order-summary {
-    background: white;
+    background: rgb(0, 0, 0);
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
