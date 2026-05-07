@@ -6,7 +6,7 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f4f4f7;
-    color: #f82828;
+    color: #000000;
 }
 
 .site-header {
@@ -65,7 +65,7 @@ body {
 .confirm-page,
 .checkout-summary,
 .order-summary {
-    background: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
@@ -83,7 +83,9 @@ body {
 .product-info h1 {
     margin: 0 0 0.75rem;
 }
-
+.product-body h2{
+    background-color: #000000;
+}
 .price,
 .product-price {
     color: #000000;
