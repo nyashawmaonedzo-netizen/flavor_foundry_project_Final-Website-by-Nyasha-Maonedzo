@@ -3,11 +3,32 @@
 {% block content %}
 <section class="hero">
     <div>
-        <h1>FlavorFoundry By Nyasha Maonedzo</h1>
-        <p>Browse Your Food, add them to your cart, and checkout <div class="">
-        <n></n>
-            Hatitambire MaZig Musandipe muyedzo
-        </p>
+        <h1>Welcome to FlavorFoundry</h1>
+        <p>Discover delicious recipes and quality ingredients — add to cart and checkout easily.</p>
+    </div>
+</section>
+
+<section class="featured-cats page-container">
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1512058564366-c9e3a0d4a8b4?auto=format&fit=crop&w=400&q=60" alt="Fresh Meals">
+        <div>
+            <div class="cat-name">Fresh Meals</div>
+            <div class="cat-desc">Ready-to-eat recipes and family favorites</div>
+        </div>
+    </div>
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=60" alt="Baked Goods">
+        <div>
+            <div class="cat-name">Baked Goods</div>
+            <div class="cat-desc">Artisan breads, pastries and desserts</div>
+        </div>
+    </div>
+    <div class="cat-card">
+        <img src="https://images.unsplash.com/photo-1547592166-4b8d1f6fdc79?auto=format&fit=crop&w=400&q=60" alt="Groceries">
+        <div>
+            <div class="cat-name">Grocery Staples</div>
+            <div class="cat-desc">Pantry essentials and organic picks</div>
+        </div>
     </div>
 </section>
 
@@ -19,7 +40,7 @@
             {% for category in categories %}
                 <option value="{{ category.id }}" {% if selected_category|stringformat:"s" == category.id|stringformat:"s" %}selected{% endif %}>
                     {{ category.name }}
-                </option>x``
+                </option>
             {% endfor %}
         </select>
         <button type="submit" class="button">Search</button>
@@ -35,20 +56,25 @@
                         {% if product.image %}
                             <img src="{{ product.image.url }}" alt="{{ product.name }}">
                         {% else %}
-                            <img src="{{ product.image_url|default:'https://via.placeholder.com/320x220?text=No+Image' }}" alt="{{ product.name }}">
+                            <img src="{{ product.image_url|default:'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=60' }}" alt="{{ product.name }}">
                         {% endif %}
                     </a>
                     <div class="product-body">
+                        <div class="product-badges">
+                            {% if product.available %}<span class="badge free-delivery">Free delivery</span>{% endif %}
+                            {% if product.stock > 0 and product.stock < 5 %}<span class="badge promo">Low stock</span>{% endif %}
+                        </div>
                         <h2><a href="{% url 'product_detail' id=product.id %}">{{ product.name }}</a></h2>
                         {% if product.category %}
                             <p class="category">{{ product.category.name }}</p>
                         {% endif %}
-                        <p>{{ product.description|truncatechars:140 }}</p>
+                        <p>{{ product.description|truncatechars:120 }}</p>
                         <p class="price">${{ product.price }}</p>
                         {% if product.reviews.all %}
                             <p class="rating">★ {{ product.get_average_rating|floatformat:1 }} ({{ product.reviews.count }} reviews)</p>
                         {% endif %}
                         <p class="availability">{% if product.is_in_stock %}In stock{% else %}Out of stock{% endif %}</p>
+                        <p class="seller">Sold by <strong>FlavorFoundry</strong></p>
                         <div class="card-actions">
                             <a class="button outline" href="{% url 'product_detail' id=product.id %}">View</a>
                         </div>

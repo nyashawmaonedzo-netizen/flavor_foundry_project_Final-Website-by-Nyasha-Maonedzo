@@ -5,6 +5,10 @@ urlpatterns = [
     # Home & Products
     path('', views.home, name='home'),
     path('product/<int:id>/', views.product_detail, name='product_detail'),
+
+    # Product manage (individual)
+    path('product/<int:id>/edit/', views.edit_product, name='edit_product'),
+    path('product/<int:id>/delete/', views.delete_product, name='delete_product'),
     
     # Cart
     path('cart/', views.cart_detail, name='cart_detail'),
@@ -17,13 +21,9 @@ urlpatterns = [
     
     # Product Management (read-only)
     path('add/', views.add_product, name='add_product'),
-    path('edit/<int:id>/', views.edit_product, name='edit_product'),
-    path('delete/<int:id>/', views.delete_product, name='delete_product'),
-    
-    # Authentication
-    path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
+    path('register/', views.register, name='register'),
     
     # Wishlist
     path('wishlist/', views.wishlist, name='wishlist'),

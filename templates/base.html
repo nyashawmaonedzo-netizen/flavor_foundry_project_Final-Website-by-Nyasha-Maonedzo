@@ -6,30 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlavorFoundry Shop</title>
     {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body>
     <header class="site-header">
         <div class="brand">
-            <a href="{% url 'home' %}">Vertex Food Hut</a>
+            <a href="{% url 'home' %}">FlavorFoundry</a>
         </div>
-        <nav class="main-nav">
-            <a href="{% url 'home' %}">Food</a>
-            {% if user.is_staff %}
-                <a href="{% url 'add_product' %}"> Add Product</a>
-                <a href="/admin/">Admin Panel</a>
-            {% endif %}
-            {% if user.is_authenticated %}
-                <a href="{% url 'wishlist' %}"> Wishlist</a>
-                <a href="{% url 'user_orders' %}"> My Orders</a>
-                <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
-            {% else %}
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'register' %}">Register</a>
-            {% endif %}
-            <a href="{% url 'cart_detail' %}"> Cart ({{ cart_count|default:0 }})</a>
-        </nav>
+
+        <div class="header-controls">
+            <form action="{% url 'home' %}" method="get" class="search-form" role="search">
+                <input type="text" name="search" placeholder="Search for food, recipes, ingredients..." value="{{ request.GET.search|default:'' }}">
+                <button class="button" type="submit">Search</button>
+            </form>
+
+            <div class="header-links">
+                {% if user.is_staff %}
+                    <a href="{% url 'add_product' %}">Add Product</a>
+                    <a href="/admin/">Admin</a>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'wishlist' %}">Wishlist</a>
+                    <a href="{% url 'user_orders' %}">My Orders</a>
+                    <a href="{% url 'logout' %}">Logout ({{ user.username }})</a>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
+                {% endif %}
+
+                <a class="cart" href="{% url 'cart_detail' %}">Cart ({{ cart_count|default:0 }})</a>
+            </div>
+        </div>
     </header>
 
     {% if messages %}
