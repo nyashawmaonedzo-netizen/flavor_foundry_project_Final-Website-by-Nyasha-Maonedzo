@@ -26,11 +26,7 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-1k)qfx%!pr6xjocyylri=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = [
-    "flavor-foundry-project-final-website-by.onrender.com",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',') if config('ALLOWED_HOSTS', default='') else ['localhost', '127.0.0.1']
 
 
 # Application definition
